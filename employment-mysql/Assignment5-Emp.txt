@@ -1,0 +1,41 @@
+
+Assignment - 5:
+SQL_Query
+
+// CREATE DATABASE Employee;
+
+CREATE TABLE Organisation(EmpId int NOT NULL,Name varchar(255) NOT NULL,Desig varchar(255),  Mail varchar(255),ReportTo varchar(255),PRIMARY KEY (EmpId));
+
+
+/*INSERT INTO Organisation(EmpId,Name,Desig,Mail,ReportTo,)VALUES(UUID(),'Dhoni','Manager','dhoni@gmail.com','');
+*/
+
+
+INSERT INTO Organisation(EmpId,Name,Desig,Mail,ReportTo)VALUES(1,'Dhoni','Manager','dhoni@gmail.com','');
+
+INSERT INTO Organisation(EmpId,Name,Desig,Mail,ReportTo)VALUES(2,'Raina','Staff','raina@gmail.com','1');
+
+INSERT INTO Organisation(EmpId,Name,Desig,Mail,ReportTo)VALUES(3,'Kohli','Staff','kohli@gmail.com','1');
+
+INSERT INTO Organisation(EmpId,Name,Desig,Mail,ReportTo)VALUES(4,'Ashwin','Staff','ashwin@gmail.com','3');
+
+INSERT INTO Organisation(EmpId,Name,Desig,Mail,ReportTo)VALUES(5,'Jadeja','Staff','jadeja@gmail.com','3');
+
+QUESTIONS:
+
+Question-1: Find all the sub-ordinates for a given employee :
+
+select * from Organisation where Desig='staff' and ReportTo = (select EmpId from Organisation where Name='Kohli');
+
+| EmpId |   Name | Desig |             Mail | ReportTo |
+|-------|--------|-------|------------------|----------|
+|     4 | Ashwin | Staff | ashwin@gmail.com |        3 |
+|     5 | Jadeja | Staff | jadeja@gmail.com |        3 |
+
+Question-2: Find the manager of an employee :
+
+select * from Organisation where Desig = 'Manager' and EmpId = (select ReportTo as EmpId FROM Organisation WHERE Name= 'Kohli');
+
+| EmpId |  Name |   Desig |            Mail | ReportTo |
+|-------|-------|---------|-----------------|----------|
+|     1 | Dhoni | Manager | dhoni@gmail.com |          |
